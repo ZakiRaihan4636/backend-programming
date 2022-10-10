@@ -14,7 +14,7 @@ class Animal
   public function index()
   {
     foreach ($this->animals as $animal) {
-      echo $animal . "\n";
+      echo $animal . "<br>";
     }
   }
 
@@ -36,21 +36,21 @@ class Animal
 
 $animal = new Animal(["Ayam", "ikan"]);
 
-echo "Index - Menampilkan seluruh hewan \n";
+echo "Index - Menampilkan seluruh hewan <br>";
 $animal->index();
-echo "\n";
+echo "<br>";
 
-echo "Store - Menambagkan hewan baru (burung) \n";
+echo "Store - Menambagkan hewan baru (burung) <br>";
 $animal->store("Burung");
 $animal->index();
-echo "\n";
+echo "<br>";
 
-echo "Update = Mengupdate hewan \n";
+echo "Update = Mengupdate hewan <br>";
 $animal->update(0, "Kucing anggora");
 $animal->index();
-echo "\n";
+echo "<br>";
 
-echo "Destroy - menghapus hewan \n";
+echo "Destroy - menghapus hewan <br>";
 $animal->destroy(1);
 $animal->index();
-echo "\n";
+echo "<br>";
