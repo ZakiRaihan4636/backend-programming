@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AnimalsController;
+use App\Http\Controllers\AnimalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
