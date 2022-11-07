@@ -36,6 +36,29 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function show(Request $request, $id)
+    {
+        $student = Student::find($id);
+
+        if ($student) {
+            $data = [
+                "message" => "Resouces by id $id successfuly",
+                "data" => $student
+            ];
+
+            // mengembalikan data (json) dan kode 200
+
+            return response()->json($data, 200);
+        } else {
+            $data = [
+                'message' => "Resources not found"
+            ];
+
+            return response()->json($data, 404);
+        }
+    }
+
     public function store(Request $request)
     {
         # menangkap data request
@@ -67,21 +90,32 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Student::find($id);
+        $student = Student::find($id);
 
-        $data->nama = $request->nama;
-        $data->nim = $request->nim;
-        $data->email = $request->email;
-        $data->jurusan = $request->jurusan;
+        if ($student) {
+            // menagkap data request
+            $input = [
+                'nama' => $request->nama,
+                'nim' => $request->nim,
+                'email' => $request->email,
+                'jurusan' => $request->jurusan,
+            ];
 
-        $data->save();
+            $student->update($input);
+            $data = [
+                'message' => 'Student is updated',
+                'data' => $student
+            ];
 
-        $result = [
-            "message" => "Student id $id is updated",
-            "data" => $data
-        ];
+            #mengembalikan data (json) dan kode 200
+            return response()->json($data, 200);
+        } else {
+            $data = [
+                'message' => 'Student Not Found'
+            ];
 
-        return $result;
+            return response()->json($data, 404);
+        }
     }
 
     /**
@@ -92,13 +126,23 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        Student::destroy($id);
+        $student = Student::find($id);
 
-        $result = [
-            "message" => "Student id $id is destroyed",
-            "data" => $this->index()
-        ];
+        if ($student) {
+            $student->delete($id);
 
-        return $result;
+            $data = [
+                'message' => 'Student is deleted'
+            ];
+
+            # mengembalikan data (json) dan kode 200
+            return response()->json($data, 200);
+        } else {
+            $data = [
+                'message' => 'Student not found'
+            ];
+
+            return response()->json($data, 404);
+        }
     }
 }
