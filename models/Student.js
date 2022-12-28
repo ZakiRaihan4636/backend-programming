@@ -34,7 +34,47 @@ class Student {
       });
     });
   }
+
+  static find(id) {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM students WHERE id= ?`;
+      db.query(query, id, (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const [student] = results;
+          resolve(student);
+        }
+      });
+    });
+  }
+
+  static async update(id, data) {
+    await new Promise((resolve, reject) => {
+      const query = `UPDATE students SET ? WHERE id = ?`;
+      db.query(query, [data, id], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    const student = await this.find(id);
+    return student;
+  }
+
+  static async delete(id) {
+   return new Promise((resolve, reject) => {
+    const sql = "DELETE FROM students WHERE id = ?";
+    db.query(sql, id, (err, results) => {
+      resolve(results)
+    });
+   });
+  }
 }
+
 
 // export class Student
 module.exports = Student;
